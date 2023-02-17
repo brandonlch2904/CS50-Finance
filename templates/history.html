@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+        <table class="table table-striped">
+            <thead>
+                <th class="text-start" scope="col">Transaction ID</th>
+                <th class="text-start" scope="col">Description</th>
+                <th class="text-start" scope="col">Amount</th>
+                <th class="text-end" scope="col">Transacted</th>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <td class="text-start">{{ transaction.transaction_id }}</td>
+                        <td class="text-start">{{ transaction.short_description }}</td>
+                        <td class="text-start">{{ usd(transaction.amount) }}</td>
+                        <td class="text-end">{{ transaction.date_and_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

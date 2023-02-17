@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead class="table-info">
+            <tr>
+                <th class="text-start" scope="col">Symbol</th>
+                <th class="text-start" scope="col">Name</th>
+                <th class="text-end" scope="col">Shares</th>
+                <th class="text-end" scope="col">Price</th>
+                <th class="text-end" scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shares in sharesOwned %}
+                {% set lookup = lookup(shares.symbol) %}
+                <tr>
+                    <td class="text-start">{{ shares.symbol }}</td>
+                    <td class="text-start">{{ shares.companyName }}</td>
+                    <td class="text-end">{{ shares.amount }}</td>
+                    <td class="text-end">{{ usd(lookup.price) }}</td>
+                    <td class="text-end">{{ usd(shares.totalCost) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-end fw-bold border-0">Cash Balance:</td>
+                <td class="text-end border-0">{{ usd(cashBalance) }}</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-end fw-bold border-0">Total Balance:</td>
+                <td class="text-end border-0">{{ usd(totalBalance) }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
